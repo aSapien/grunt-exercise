@@ -1,7 +1,7 @@
 # Grunt!
 
 This is an exercise for beginners in [Grunt](http://gruntjs.com/).
-Follow this guide to take the simple website that is in the `src` directory,
+Follow this guide to take [the simple website](http://danyshaanan.github.io/grunt-exercise/) that is in the `src` directory,
 validate it, run its tests, and create a production version of it with
 nothing but Grunt and Grunt task modules.
 

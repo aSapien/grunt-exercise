@@ -290,7 +290,7 @@ in the `src` directory, and open it in the browser.
 
 
 ## Other tasks
-If you'll peek at the `result` branch,
+If you'll peek at the ['result' branch](https://github.com/danyshaanan/grunt-exercise/tree/result),
 you'll see a project with everything we've done here,
 and a few other tasks,
 relating to building a production version of the site,

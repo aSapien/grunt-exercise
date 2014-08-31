@@ -55,7 +55,7 @@ It will add the grunt module to the `node_modules` directory,
 (which it will create if it doesn't yet exist),
 and since we've used `--save-dev`,
 it will add grunt to our empty `package.json` file
-under `devDependencies`.
+under the `devDependencies` key.
 Look into the `package.json` file to see what's added.
 
 Notice that `node_modules` is in the `.gitignore` file,
@@ -94,7 +94,7 @@ jshint: {
   options: {
     asi: true
   }
-}
+},
 ```
 And right after that call, we're gonna tell Grunt
 to load the task, with:
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
       options: {
         asi: true
       }
-    }
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint')
@@ -142,7 +142,7 @@ Add this key:value pair to the object passed to `grunt.config.init`:
 ```js
 csslint: {
   src: ['src/**/*.css']
-}
+},
 ```
 and get Grunt to load the task with:
 ```js
@@ -175,7 +175,7 @@ jasmine_node: {
       extensions: 'js'
   },
   all: ['test']
-}
+},
 ```
 and get Grunt to load it:
 ```js
@@ -239,7 +239,7 @@ watch: {
     files: ['src/**/*.css'],
     tasks: ['csslint']
   }
-}
+},
 ```
 Load:
 ```js
@@ -278,7 +278,7 @@ connect: {
       keepalive: true
     }
   }
-}
+},
 ```
 and load:
 ```js
@@ -319,30 +319,14 @@ grunt.registerTask('hello', function() {
   grunt.log.writeln('Hello!!!')
 })
 
-grunt.registerTask('random', function() {
-  if (Math.random() < 0.5) {
-    grunt.log.writeln('Pass!!!')
-  } else {
-    grunt.fail.fatal('Fail :[')
-  }
-})
-
-grunt.registerTask('weather', function() {
-  var done = this.async()
-  var request = require('request') //This requires running "npm i request"
-  request('http://api.openweathermap.org/data/2.5/weather?q=Tel_Aviv', function(err, res, body) {
-    if (err) grunt.fail.fatal('Could not get date. ' + err)
-    try {
-      var data = JSON.parse(body)
-    } catch(e) {
-      grunt.fail.fatal('returned data is not valid json')
-    }
-    var weather = data.weather[0]
-    var output = 'Weather in ' + data.name + ':\n'
-    output += weather.main + '\n'
-    output += (data.main.temp - 272.15).toFixed(2) + ' celsius\n'
-    grunt.log.writeln(output)
-    done()
+grunt.registerTask('varify-files-location', function() {
+  ['js','css'].forEach(function(extention) {
+    var dir = 'src/' + extention + '/'
+    grunt.file.expand('src/**/*.' + extention).forEach(function(file){
+      if (file.indexOf(dir) !== 0) {
+        grunt.fail.fatal('file ' + file + ' should be in directory ' + dir)
+      }
+    })
   })
 })
 ```
